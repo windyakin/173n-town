@@ -1,0 +1,19 @@
+{
+  "name": "173n-town",
+  "version": "1.0.0",
+  "description": "173n-town auto omikuji drawler",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/windyakin/173n-town.git"
+  },
+  "author": "windyakin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/windyakin/173n-town/issues"
+  },
+  "homepage": "https://github.com/windyakin/173n-town#readme"
+}
