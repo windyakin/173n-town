@@ -4,7 +4,10 @@
   "description": "173n-town auto omikuji drawler",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "ncc build src/index.ts -o dist",
+    "dev": "ncc -w build src/index.ts -o dist"
   },
   "repository": {
     "type": "git",
@@ -15,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/windyakin/173n-town/issues"
   },
-  "homepage": "https://github.com/windyakin/173n-town#readme"
+  "homepage": "https://github.com/windyakin/173n-town#readme",
+  "devDependencies": {
+    "@vercel/ncc": "^0.34.0",
+    "typescript": "^4"
+  }
 }
