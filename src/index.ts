@@ -1,4 +1,6 @@
 import * as Puppeteer from 'puppeteer';
+import Axios from 'axios';
+import { jsxslack } from 'jsx-slack';
 
 const WEBSITE_URL: string = Buffer.from('aHR0cHM6Ly9mYy5pbmFtaW50b3duLmpwL3MvbjE2MS9wYWdlL29taWt1amk=', 'base64').toString();
 const NAVIGATION_WAITING_OPTIONS: Puppeteer.WaitForOptions = { waitUntil: 'networkidle0' };
@@ -48,14 +50,40 @@ const NAVIGATION_WAITING_OPTIONS: Puppeteer.WaitForOptions = { waitUntil: 'netwo
         resolve(true);
       }, 10000);
     });
-    const gotPoints = await (await (await page.$('div.p-kuji_result__get-text')).getProperty('textContent')).jsonValue();
-    console.log(gotPoints);
+    const gotPointText: string = await (await (await page.$('div.p-kuji_result__get-text')).getProperty('textContent')).jsonValue();
     await Promise.all([
       (await page.$('a.p-kuji_result_btn__text')).click(),
       page.waitForNavigation(NAVIGATION_WAITING_OPTIONS),
     ]);
-    const hasPoints = await (await (await page.$('div.p-room__point-text')).getProperty('textContent')).jsonValue();
-    console.log(hasPoints);
+    const hasPointText: string = await (await (await page.$('div.p-room__point-text')).getProperty('textContent')).jsonValue();
+    const hasPoints = hasPointText.replace(/^現在 (\d+)ポイント$/, "$1") || '--';
+
+    await Axios.post(
+      process.env.SLACK_WEBHOOK_URL,
+      {
+        text: '今日のポイントを回収したよ',
+        blocks: jsxslack`
+          <Section>
+            <p>:shinto_shrine: 今日のおみくじを引いてポイントを回収したよ</p>
+          </Section>
+          <Divider />
+          <Section>
+            <Field>
+              <b>今日の獲得ポイント</b><br />
+              ${gotPointText}
+            </Field>
+            <Field>
+              <b>これまでの総ポイント</b><br />
+              ${hasPoints} pt
+            </Field>
+          </Section>
+          <Divider />
+          <Context>
+            <Mrkdwn>Powered by 173n-town</Mrkdwn>
+          </Context>
+        `
+      }
+    );
   } catch (err) {
     console.log(err);
   } finally {
