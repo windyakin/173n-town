@@ -7,8 +7,7 @@ const NAVIGATION_WAITING_OPTIONS: Puppeteer.WaitForOptions = { waitUntil: 'netwo
 
 (async() => {
   const browser = await Puppeteer.launch({
-    executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-    headless: false
+    executablePath: process.env.CHROME_EXECUTABLE_PATH,
   });
   const page = await browser.newPage();
   page.emulate({
