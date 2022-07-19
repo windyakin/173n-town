@@ -30,7 +30,7 @@ RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
   && mkdir -p /usr/src/app \
   && chown -R pptruser:pptruser /usr/src/app
 
-ENV CHROME_EXECUTE_PATH=/usr/bin/chromium
+ENV CHROME_EXECUTABLE_PATH=/usr/bin/chromium
 
 USER pptruser
 
