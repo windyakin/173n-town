@@ -21,6 +21,7 @@ const NAVIGATION_WAITING_OPTIONS: Puppeteer.WaitForOptions = { waitUntil: 'netwo
       isLandscape: false,
     },
   });
+  page.setDefaultNavigationTimeout(parseInt(process.env.PUPPETEER_TIMEOUT) || 30000);
   try {
     await Promise.all([
       page.goto(WEBSITE_URL),
