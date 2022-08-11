@@ -5,6 +5,8 @@ WORKDIR /usr/src/app
 COPY package.json .
 COPY package-lock.json .
 
+ENV PUPPETEER_SKIP_DOWNLOAD true
+
 RUN npm install
 
 COPY . .
@@ -22,7 +24,7 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/* /var/cache/apt/* \
   && apt-get autoremove -y
 
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
+ENV PUPPETEER_SKIP_DOWNLOAD true
 
 RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
   && mkdir -p /home/pptruser/Downloads \
