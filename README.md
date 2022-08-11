@@ -1,6 +1,6 @@
 # 173n-town
 
-Crawling the 173n Town website and posting content updates to Slack.
+Crawling the 173n Town website and posting "Omikuji" results to Slack.
 
 ![](thumbnail.png)
 
