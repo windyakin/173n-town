@@ -21,8 +21,8 @@
   },
   "homepage": "https://github.com/windyakin/173n-town#readme",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "5.36.1",
-    "@typescript-eslint/parser": "5.36.1",
+    "@typescript-eslint/eslint-plugin": "5.36.2",
+    "@typescript-eslint/parser": "5.36.2",
     "@vercel/ncc": "0.34.0",
     "axios": "0.27.2",
     "eslint": "8.23.0",
@@ -32,6 +32,6 @@
     "typescript": "4.8.2"
   },
   "dependencies": {
-    "puppeteer": "17.1.0"
+    "puppeteer": "17.1.2"
   }
 }
