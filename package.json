@@ -24,12 +24,12 @@
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
     "@vercel/ncc": "0.38.1",
-    "axios": "1.7.4",
+    "axios": "1.7.5",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
     "jsx-slack": "6.1.1",
     "prettier": "2.8.8",
-    "typescript": "5.4.2"
+    "typescript": "5.5.4"
   },
   "dependencies": {
     "puppeteer": "19.11.1"
