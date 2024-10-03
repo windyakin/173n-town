@@ -7,7 +7,7 @@ const NAVIGATION_WAITING_OPTIONS: Puppeteer.WaitForOptions = { waitUntil: 'netwo
 
 (async() => {
   const browser = await Puppeteer.launch({
-    executablePath: process.env.CHROME_EXECUTABLE_PATH,
+    executablePath: process.env.CHROME_EXECUTABLE_PATH
   });
   const page = await browser.newPage();
   page.emulate({
@@ -27,30 +27,48 @@ const NAVIGATION_WAITING_OPTIONS: Puppeteer.WaitForOptions = { waitUntil: 'netwo
       page.goto(WEBSITE_URL),
       page.waitForNavigation({ waitUntil: 'networkidle0' }),
     ]);
+    // Accept using Cookie
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(true);
+      }, 1000);
+    });
+    await (await page.$('#onetrust-accept-btn-handler')).click();
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(true);
+      }, 1000);
+    });
+    // おみくじを引く
     await Promise.all([
       (await page.$('a.p-kuji_enter_data')).click(),
       page.waitForNavigation(NAVIGATION_WAITING_OPTIONS),
     ]);
+    // ログイン
     await Promise.all([
       (await page.$('button.CpBaseBtn')).click(),
       page.waitForNavigation(NAVIGATION_WAITING_OPTIONS),
     ]);
+    // ログイン情報入力
     await (await page.$('input[name="idpwLgid"]')).type(process.env.TOWN_USER);
     await (await page.$('input[name="idpwLgpw"]')).type(process.env.TOWN_PASS);
     await Promise.all([
       (await page.$('button.CpBaseBtn[type="submit"]')).click(),
       page.waitForNavigation(NAVIGATION_WAITING_OPTIONS),
     ]);
+    // 元のページに戻る
     await Promise.all([
       (await page.$('button.CpBaseBtn[type="submit"]')).click(),
       page.waitForNavigation(NAVIGATION_WAITING_OPTIONS),
     ]);
+    // おみくじ結果
     await new Promise((resolve) => {
       setTimeout(() => {
         resolve(true);
       }, 10000);
     });
     const gotPointText: string = await (await (await page.$('div.p-kuji_result__get-text')).getProperty('textContent')).jsonValue();
+    // あなたの部屋に移動
     await Promise.all([
       (await page.$('a.p-kuji_result_btn__text')).click(),
       page.waitForNavigation(NAVIGATION_WAITING_OPTIONS),
