@@ -1,4 +1,4 @@
-FROM node:20 AS builder
+FROM node:22 AS builder
 
 WORKDIR /usr/src/app
 
@@ -13,7 +13,7 @@ COPY . .
 
 RUN npm run build
 
-FROM node:20
+FROM node:22
 
 ENV DEBIAN_FRONTEND=noninteractive
 
