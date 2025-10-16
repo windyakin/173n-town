@@ -12,19 +12,19 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "8.39.1",
-    "@typescript-eslint/parser": "8.39.1",
-    "@vercel/ncc": "0.38.3",
-    "axios": "1.11.0",
+    "@typescript-eslint/eslint-plugin": "8.46.1",
+    "@typescript-eslint/parser": "8.46.1",
+    "@vercel/ncc": "0.38.4",
+    "axios": "1.12.2",
     "esbuild": "^0.25.0",
-    "eslint": "9.33.0",
+    "eslint": "9.37.0",
     "eslint-config-prettier": "10.1.8",
     "jsx-slack": "6.1.2",
     "prettier": "3.6.2",
     "ts-node": "^10.9.2",
-    "typescript": "5.9.2"
+    "typescript": "5.9.3"
   },
   "dependencies": {
-    "puppeteer": "24.16.1"
+    "puppeteer": "24.25.0"
   }
 }
