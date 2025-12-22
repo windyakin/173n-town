@@ -12,8 +12,8 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "8.50.0",
-    "@typescript-eslint/parser": "8.50.0",
+    "@typescript-eslint/eslint-plugin": "8.50.1",
+    "@typescript-eslint/parser": "8.50.1",
     "@vercel/ncc": "0.38.4",
     "axios": "1.13.2",
     "esbuild": "^0.27.0",
@@ -25,6 +25,6 @@
     "typescript": "5.9.3"
   },
   "dependencies": {
-    "puppeteer": "24.33.0"
+    "puppeteer": "24.34.0"
   }
 }
