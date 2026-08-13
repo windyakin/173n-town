@@ -3,11 +3,16 @@
   "extends": [
     "config:base"
   ],
+  "minimumReleaseAge": "7 days",
   "packageRules": [
     {
       "matchDepTypes": ["devDependencies", "dependencies"],
       "matchUpdateTypes": ["patch", "minor", "pin", "digest"],
       "groupName": "dependencies-non-major-updates"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "groupName": "github-actions"
     }
   ]
 }
