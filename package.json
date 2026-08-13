@@ -22,7 +22,7 @@
     "jsx-slack": "6.1.2",
     "prettier": "3.9.6",
     "ts-node": "^10.9.2",
-    "typescript": "5.9.3"
+    "typescript": "7.0.2"
   },
   "dependencies": {
     "puppeteer": "25.5.0"
