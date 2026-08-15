@@ -39,6 +39,9 @@ USER pptruser
 WORKDIR /usr/src/app
 
 COPY --chown=pptruser:pptruser --from=builder /usr/src/app/package.json /usr/src/app/package-lock.json /usr/src/app/
+
+RUN npm ci --omit=dev
+
 COPY --chown=pptruser:pptruser --from=builder /usr/src/app/dist /usr/src/app/dist
 
 CMD ["npm", "run", "start"]
