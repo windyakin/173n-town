@@ -26,6 +26,49 @@ Variable name | Description | Example
 
 `*`: Required parameters
 
+## Running on Kubernetes with a read-only filesystem
+
+The image runs as the `node` user (UID/GID 1000). Puppeteer's temporary browser profile, Chromium's configuration and cache, and npm's cache and logs are configured to use `/tmp`. Mount an `emptyDir` there and set the Pod's `fsGroup` so the user can write to the volume.
+
+For example, create a Secret named `173n-town` containing `TOWN_USER`, `TOWN_PASS`, and `SLACK_WEBHOOK_URL`, then use the following Pod configuration (or its `spec` in a Job/CronJob Pod template):
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: 173n-town
+spec:
+  restartPolicy: Never
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+  containers:
+    - name: app
+      image: ghcr.io/windyakin/173n-town
+      envFrom:
+        - secretRef:
+            name: 173n-town
+      securityContext:
+        readOnlyRootFilesystem: true
+        runAsNonRoot: true
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: ["ALL"]
+        seccompProfile:
+          type: RuntimeDefault
+      volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+  volumes:
+    - name: tmp
+      emptyDir: {}
+```
+
+The `/tmp` environment settings are included in the image; no home-directory or application-directory volume is needed for the current application.
+
+Chromium's sandbox remains enabled. If Chromium reports `No usable sandbox!` or `Operation not permitted`, check the node's user namespace, seccomp, and AppArmor configuration.
+
 ## License
 
 This program is under the [MIT License](LICENSE)

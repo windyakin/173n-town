@@ -26,19 +26,20 @@ RUN apt-get update \
 
 ENV PUPPETEER_SKIP_DOWNLOAD true
 
-RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
-  && mkdir -p /home/pptruser/Downloads \
-  && chown -R pptruser:pptruser /home/pptruser \
-  && mkdir -p /usr/src/app \
-  && chown -R pptruser:pptruser /usr/src/app
+RUN mkdir -p /usr/src/app \
+  && chown node:node /usr/src/app
 
-ENV CHROME_EXECUTABLE_PATH=/usr/bin/chromium
+ENV CHROME_EXECUTABLE_PATH=/usr/bin/chromium \
+    TMPDIR=/tmp \
+    XDG_CONFIG_HOME=/tmp/chromium-config \
+    XDG_CACHE_HOME=/tmp/chromium-cache \
+    npm_config_cache=/tmp/npm-cache
 
-USER pptruser
+USER node
 
 WORKDIR /usr/src/app
 
-COPY --chown=pptruser:pptruser --from=builder /usr/src/app/package.json /usr/src/app/package-lock.json /usr/src/app/
-COPY --chown=pptruser:pptruser --from=builder /usr/src/app/dist /usr/src/app/dist
+COPY --chown=node:node --from=builder /usr/src/app/package.json /usr/src/app/package-lock.json /usr/src/app/
+COPY --chown=node:node --from=builder /usr/src/app/dist /usr/src/app/dist
 
 CMD ["npm", "run", "start"]
